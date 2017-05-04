@@ -1,0 +1,343 @@
+/* Custom CSS overrides */
+
+
+/*Maintenance-page*/
+.maintenance-page #header-top,.maintenance-page #subfooter { min-height: 60px; }
+
+.maintenance-page #footer-top { min-height: 40px; }
+
+
+/* MEMORY DESIGN */
+   
+/*                         
+.block-bootstrap-login-modal {
+    padding: 0px !important;
+   
+}
+                      
+.block-bootstrap-login-moda li, 
+.block-bootstrap-login-moda li:visited,
+.block-bootstrap-login-moda li a:focus,   
+.block-bootstrap-login-moda li a:visited
+ {
+    background-color: #961300 !important;
+} 
+*/                        
+
+
+.multipage-pane .field-type-image .image-widget-data {
+  float: left;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.multipage-pane .field-type-image .form-submit {
+  display: inline-block;
+  float: right;
+  top: -12px;
+  position: relative;
+}
+
+.form-managed-file .form-file, .form-managed-file .form-submit {
+  margin: 0;
+  float: left;
+}
+
+.multipage-pane .field-type-image .description {
+    display:none;
+} 
+                
+
+
+.form-item, .form-actions {  margin-top: 0em; }
+
+.multipage-controls-list input#edit-submit {
+-webkit-border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font: 12px arial,sans-serif;
+  font-weight: bold;
+  color: #fff;
+  padding: 7px 12px;
+  background-color: #961300;     
+    background: -webkit-gradient(linear, center top, center bottom, from(#961300), to(#961300));
+}    
+
+.multipage-controls-list input#edit-submit:hover { 
+  background-color: #ff0000;    
+    background: -webkit-gradient(linear, center top, center bottom, from(#ff0000), to(#ff0000));
+  }
+  
+
+.multipage-pane .fieldset-description {
+  font-size: 16pt;
+  text-align: center;
+  background: #961300;
+  color: #fff;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+
+.sticky-table input {
+  background: #fff;
+  }
+  
+  
+  label { font-size: 12pt; }
+  
+#bottom-content { margin: 20px 0 0 0; }
+
+#main-content {
+  padding: 20px 0px 0px 0px ;
+}
+
+#messages-console {
+  margin: 10px 0 0 0;
+}
+
+
+.submitted-user { display:none; }
+
+.node-teaser .field-type-taxonomy-term-reference {
+  margin: 0px 0 10px 0;
+}
+
+.node.node-teaser header {
+  padding-bottom: 0px;
+}
+
+.views-exposed-widgets .views-exposed-widget { width:100%; }
+
+.views-exposed-widgets fieldset legend {  
+      margin: 0 auto;    
+     text-align: center;
+     /* margin-right: 10px;   
+       margin-bottom: 0px; */ 
+}
+
+.views-exposed-widgets .bef-checkboxes {
+    font-size:12pt;
+}
+
+.views-exposed-form label {
+  font-weight: normal;
+  font-size: 10pt;
+}
+
+.views-exposed-form fieldset { margin: 0px 0px 15px 0px; }
+       
+.views-exposed-widgets .bef-checkboxes input { display:none; }   
+.views-exposed-widgets .bef-checkboxes label { cursor:pointer; width:100%; display: block; padding: 1% 10%; } 
+.views-exposed-widgets .bef-checkboxes label:hover { background:#eee; color:#000; }  
+.views-exposed-form  .highlight, .views-exposed-form  .highlight:hover label:hover { background-color: #961300; color:#fff; }    
+/*.views-exposed-widgets .bef-checkboxes input[type="radio"]:checked+label{ font-weight: bold; }*/
+
+
+.views-reset-button {   text-align: center; } 
+
+
+.collapse-processed { border: 1px solid #eee; } 
+
+.collapse-processed .collapsed { border: 1px solid #fff; }
+
+
+.page-memory-book .field-type-image img {
+     
+    border:10px #fff solid; 
+
+-webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+-moz-box-shadow:    0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+box-shadow:         0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+
+.page-memory-book .node-teaser:hover .field-type-image img {
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:    0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    box-shadow:         0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+
+.page-memory-book .node-teaser h2 {
+  font-size: 16pt;
+  vertical-align: bottom;
+  display: table-cell;
+  min-height: 75px;
+  padding-bottom: 5px;
+  /* background: #eee; */
+  z-index: 999;
+  font-weight: 400;
+  /* position: relative; */   
+  
+} 
+
+.page-memory-book .node-teaser  {
+  min-height: 390px;   
+  margin-bottom: 30px;
+  border-bottom: 1px #eee solid;
+}
+
+.page-memory-book .node-teaser .field-name-field-rank, 
+.page-memory-book .node-teaser .field-name-field-posts {
+  margin: 5px 0px 0px 0px;  
+  width:100%;
+  text-align:center;
+}
+
+#block-system-main .search-form label { display:none; }
+#block-system-main .search-form .form-type-textfield .form-text { width:70%; }
+#block-system-main .search-form .form-submit { width:22%; }
+
+
+/* Throbber */
+ 
+/*   
+/* 
+html.js input.form-autocomplete {
+  background-image: url('/sites/all/themes/mbook/images/loading.gif'); 
+  background-position: 100% 0px;
+  background-repeat: no-repeat;
+}  
+
+html.js input.throbbing {
+  background-position: 100% -20px;
+}   */
+
+.ajax-progress {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.ajax-progress .throbber {
+  background: transparent url('/sites/all/themes/mbook/images/loading.gif') no-repeat 0px 0px;
+  float: left;
+  height: 20px; 
+  width: 20px; 
+  margin: 2px;
+}                          
+
+
+/*#autocomplete, .autocomplete { z-index:9999; background:none; }*/
+
+
+.ui-autocomplete div:hover, .ui-autocomplete a:hover {
+  border: 0px;
+}
+
+.ui-autocomplete div, .ui-autocomplete a { color:#000; border-radius:0px; border:0px; background-image: none; background-color: none; }
+.ui-autocomplete .ui-menu-item { cursor:pointer; } 
+        
+.ui-autocomplete .ui-autocomplete-field-group,    
+.ui-autocomplete .ui-autocomplete-field-name,
+.ui-autocomplete .ui-autocomplete-field-comment_count { display:none; }
+
+
+html.js input.form-autocomplete {
+  background-image: none;
+}
+
+
+
+
+.node-memorybook .vars .field {
+      font-size:14pt;     
+        margin: 15px 0 30px 0;
+}
+
+.node-memorybook .text-center .field-type-image {
+        margin-bottom: 30px;
+}
+ 
+.node-memorybook #biografy h3 { }
+
+.node-memorybook #biografy { 
+   
+   }        
+
+.node-memorybook #biografy .field-type-image .field-item { display:inline-block; margin:20px; }
+
+.node-memorybook #biografy .field-name-body {
+   line-height:150%;  
+   margin-top:10px; 
+   margin-bottom:20px; 
+                         
+   padding-top:10px; 
+   padding-bottom:10px; 
+   border-top:1px #eee solid; 
+   border-bottom:1px #eee solid; 
+}
+  
+
+.node-gallery .field-item { display:inline-block; margin:20px 20px 0px 0px;  }
+
+.node-gallery .field-type-image img, 
+.node-memorybook .field-type-image img {
+     
+    border:10px #fff solid; 
+
+-webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+-moz-box-shadow:    0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+box-shadow:         0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+
+}
+.node-gallery .field-type-image a:hover img,
+.node-memorybook .field-type-image a:hover img {
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:    0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    box-shadow:         0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.node-memorybook .comment .submitted { float:right; }
+
+
+.carousel-inner h3 { display:none; }
+
+.sidebar .view-gallery-icon a { display: block; margin-bottom:20px; }
+
+#footer .view-gallery .row { margin-bottom:20px; }
+#footer .view-gallery .views-field-field-gallery .field-content a { display:inline-block; margin-right:5px; } 
+
+
+
+
+#footer-top.two-regions {
+
+background: #c2c2c2;
+background: -moz-linear-gradient(left, #c2c2c2 0%, #c2c2c2 50%, #d7d7d7 50%, #d7d7d7 100%);
+background: -webkit-linear-gradient(left, #c2c2c2 0%,#c2c2c2 50%,#d7d7d7 50%,#d7d7d7 100%);
+background: linear-gradient(to right, #c2c2c2 0%,#c2c2c2 49.7%,#d7d7d7 49.7%,#d7d7d7 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2c2c2', endColorstr='#d7d7d7',GradientType=1 );
+
+}
+
+
+
+
+
+.node-teaser h2 a {
+    font-size: 14pt;
+}
+
+.years {
+  height: 28px; font-size: 10pt; margin-top: 10px;
+  text-align:center;
+}
+
+
+.node.node-teaser {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.node-teaser {
+    border-bottom: 1px #eee solid;
+
+    h2 {
+      line-height: 1.0;
+      margin: 10px 0 16px 0;
+    }
+}
