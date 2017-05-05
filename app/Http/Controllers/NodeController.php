@@ -29,12 +29,14 @@ class NodeController extends Controller
         {
             $abc = iconv('CP1251', 'UTF-8', $b);
 
-            if($q == $abc)
-                {
-                    $res[] = '<li class="active"><span>'.$abc.'</span></li>';
-                } else {
-                    $res[] = '<li><a href="/search/'.$abc.'">'.$abc.'</a></li>';
-                }
+            if($abc != 'Ъ' && $abc != 'Ы' && $abc != 'Ь' && $abc != 'Й' && $abc != 'Э') {
+                if($q == $abc)
+                    {
+                        $res[] = '<li class="active"><span>'.$abc.'</span></li>';
+                    } else {
+                        $res[] = '<li><a href="/search/'.$abc.'">'.$abc.'</a></li>';
+                    }
+            }
             
         }
 
