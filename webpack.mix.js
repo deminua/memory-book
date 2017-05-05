@@ -11,5 +11,7 @@ const { mix } = require('laravel-mix');
  |
  */
 
+mix.copy('node_modules/lightbox2/dist', 'public/node_modules/lightbox2');
+
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');

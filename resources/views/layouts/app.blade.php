@@ -13,6 +13,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/node_modules/lightbox2/css/lightbox.min.css') }}">
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -122,6 +124,35 @@
                         <li><a href="/">О проекте</a></li>
                         <li><a href="{{ route('node.index') }}" title="Книга памяти">Книга памяти</a></li>
                         <li><a href="/gallery" title="Галерея">Галерея</a></li>
+
+
+@if (!Auth::guest())
+<li>
+<div>
+  <a style="cursor: pointer" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->name }} <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Пункт 1</a></li>
+      <li><a href="#">Пункт 2</a></li>
+      <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Выход
+                                        </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+   </ul>
+</div>
+</li>
+@endif
+                         
+                         
+
+                         
                         </ul>
                         </div>
                          </div>
@@ -212,7 +243,7 @@
 
 
 
-<footer id="footer" class="clearfix">
+<footer id="footer" class="clearfix hidden-xs">
     <div class="container">
     <div class="row">
     <div class="col-sm-6">
@@ -220,7 +251,7 @@
     <div class="region region-footer-second">
     <div id="block-views-gallery-icon-block" class="block block-views clearfix"><h2 class="title">Новые записи</h2>
     <div class="content">
-    <div class="view view-gallery-icon view-id-gallery_icon view-display-id-block hidden-xs">
+    <div class="view view-gallery-icon view-id-gallery_icon view-display-id-block">
     <div class="view-content">
 
 @foreach($latestNodes->get() as $latestNode)
@@ -307,25 +338,6 @@
 </div>
 
 
-<div id="lightboxOverlay" class="lightboxOverlay" style="display: none;"></div>
-
-<div id="lightbox" class="lightbox" style="display: none;">
-<div class="lb-outerContainer">
-<div class="lb-container"><img class="lb-image" src="">
-<div class="lb-nav"><a class="lb-prev" href=""></a><a class="lb-next" href=""></a></div>
-
-<div class="lb-loader"><a class="lb-cancel"></a></div>
-</div>
-</div>
-
-<div class="lb-dataContainer">
-<div class="lb-data">
-<div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div>
-
-<div class="lb-closeContainer"><a class="lb-close"></a></div>
-</div>
-</div>
-</div>
 
 
 
@@ -334,6 +346,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('/node_modules/lightbox2/js/lightbox.min.js') }}"></script>
 
 
 

@@ -10,9 +10,12 @@
 @empty(!$node->image->first())
 				<div class="col-sm-3 text-center">
 					<div class="field-type-image">
-						<div class="field-item even"><a target="_black" href="/storage/{{ $node->image->first()->uri }}" title="{{ $node->title }}">
+						<div class="field-item even">
+
+						<a data-lightbox="image-{{ $node->image->first()->id }}" data-title="{{ $node->title }}" href="/storage/{{ $node->image->first()->uri }}" title="{{ $node->title }}">
 						<img src="{{ route('imagecache', ['large', $node->image->first()->uri]) }}">
-						</a></div>
+						</a>
+						</div>
 
 
 						<div class="years">{{ $node->years() }}</div>
@@ -21,6 +24,8 @@
 @endempty
 				<div class="col-sm-9 vars ">
 					<div class="field">
+
+
 								@isset($node->birthdate)<p><b>Дата рождения:</b> {{ $node->birthdate }}</p>@endisset
 								@isset($node->birthplace)<p><b>Место рождения:</b> {{ $node->birthplace }}</p>@endisset
 
@@ -66,7 +71,7 @@
 						<div class="field-items">
 						@foreach($node->gallery as $photo)
 							<div class=" col-sm-3">
-								<a href="/storage/{{ $photo->uri }}" target="_black" title="{{ $node->title }}"><img src="{{ route('imagecache', ['medium', $photo->uri]) }}"></a>
+								<a data-lightbox="roadtrip" href="/storage/{{ $photo->uri }}" data-lightbox="image-{{ $photo->id }}" data-title="{{ $node->title }}"><img src="{{ route('imagecache', ['medium', $photo->uri]) }}"></a>
 							</div>
 						@endforeach
 						</div>

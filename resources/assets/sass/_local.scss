@@ -334,10 +334,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2c2c2', end
 }
 
 .node-teaser {
+    z-index:490;
     border-bottom: 1px #eee solid;
 
     h2 {
       line-height: 1.0;
       margin: 10px 0 16px 0;
+    }
+}
+
+
+.panel-default>.panel-heading {
+  
+    font-size: 14pt;
+    padding: 15px 15px 10px 20px;
+
+    &:hover {
+      background: none;
+      color: #000;
     }
 }

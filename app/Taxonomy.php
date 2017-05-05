@@ -9,9 +9,10 @@ class Taxonomy extends Model
 	protected $table = 'taxonomy_term_data';
 
     protected $fillable = [
-        'vid', 'name', 
+        'name', 'vocabulary_id',
     ];
 
+    public $timestamps = false;
 
     public function vocabulary2()
     {

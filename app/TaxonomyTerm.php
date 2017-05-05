@@ -9,7 +9,7 @@ class TaxonomyTerm extends Model
 	protected $table = 'taxonomy_term_data';
 
     protected $fillable = [
-        'vid', 'name', 
+        'name', 
     ];
 
 	// public function TaxonomyIndexPivot(Model $parent, array $attributes, $table, $exists)

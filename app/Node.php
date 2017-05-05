@@ -11,7 +11,7 @@ class Node extends Model
 	protected $table = 'node';
 
     protected $fillable = [
-        'vid', 'title', 'body', 'education', 'birthdate', 'birthplace', 'deaddate', 'deadplace', 'info', 'type', 
+        'title', 'body', 'education', 'birthdate', 'birthplace', 'deaddate', 'deadplace', 'info', 'type', 'status'
     ];
 
 
@@ -112,7 +112,11 @@ class Node extends Model
 
         $date = ''.$year.'-'.$month.'-'.$day.'';
 
+        if($date == '0000-00-00')  {
+         $this->attributes['birthdate'] = null;
+        } else {
          $this->attributes['birthdate'] = $date;
+        }
     }
 
     public function setDeaddateAttribute($date)
@@ -125,7 +129,15 @@ class Node extends Model
         if(!empty($date[2])) { $day = $date[2]; } else { $day = "00"; }
 
         $date = ''.$year.'-'.$month.'-'.$day.'';
+
+
+        if($date == '0000-00-00')  {
+         $this->attributes['deaddate'] = null;
+        } else {
          $this->attributes['deaddate'] = $date;
+        }
+
+
     }
 
 }
