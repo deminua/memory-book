@@ -8,9 +8,9 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-		<div class="item active"><img src="http://memory-book.info/sites/default/files/banners/001.png"></div>
-		<div class="item"><img src="http://memory-book.info/sites/default/files/banners/002.png"></div>
-		<div class="item"><img src="http://memory-book.info/sites/default/files/banners/003.png"></div>
+		<div class="item active"><img src="/image/001.png"></div>
+		<div class="item"><img src="/image/002.png"></div>
+		<div class="item"><img src="/image/003.png"></div>
   </div>
 
 </div>
