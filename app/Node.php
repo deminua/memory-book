@@ -20,6 +20,11 @@ class Node extends Model
         return $this->belongsToMany('App\Taxonomy');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Taxonomy', 'node_taxonomy', 'node_id', 'taxonomy_id');
+    }
+
     public function image()
     {
         return $this->belongsToMany('App\Image', 'field_data_field_image');

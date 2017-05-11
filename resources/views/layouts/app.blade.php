@@ -168,7 +168,13 @@
 
 </header>
 
-
+@if (session('status'))
+<div class="container">
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+</div>
+@endif
 
 @yield('content')
 
@@ -277,6 +283,7 @@
     <div id="views-bootstrap-grid-2" class="views-bootstrap-grid-plugin-style">
 
         @foreach($gallery->get() as $n)
+
             <div class="row">
                 <strong><a title="{{ $n->title }}" href="{{ route('node.show', $n->id) }}">
                     <div>

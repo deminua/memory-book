@@ -4,37 +4,23 @@
 
 
 
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
 
-
-<center>
-<ul class="pagination">
-	@foreach ($alphabet as $a)
-		{!! $a !!}
-	@endforeach
-</ul>
-</center>
+<div class="col-md-12"><h1 class="title" id="page-title">{{ $term->vocabulary->name }} - {{ $term->name }}</h1></div>
 
         @foreach ($nodes as $node)
 
 
-<div class="node node-memorybook node-teaser col-xs-6 col-sm-4 col-md-3 col-lg-2 @if(!$node->status) alert-danger @endif">
+<div class="node node-memorybook node-teaser col-xs-6 col-sm-4 col-md-3 col-lg-2">
 
 <h2><a title="{{ $node->title }}" href="{{ route('node.show', $node) }}">{!! str_replace(' ', '<br>', $node->title) !!}</a></h2>
 
 
-
 <div class="field-type-image">
-
-@if (!Auth::guest())
-		<a class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;" href="{{ route('node.edit', $node) }}">
-		  <span type="button" class="btn btn-default">
-		  	<span class="glyphicon glyphicon-pencil"></span>
-		  </span>
-		</a>
-@endif
 
 	@if($node->image->first())
 		<a title="{{ $node->title }}" href="{{ route('node.show', $node) }}"><img src="{{ route('imagecache', ['small', $node->image->first()->uri]) }}"></a>

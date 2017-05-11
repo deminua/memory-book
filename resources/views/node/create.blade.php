@@ -7,7 +7,7 @@
 
 
 
-	{!! Form::model($node, ['route' => ['node.edit', $node], 'files' => true], ['class'=>'form-horizontal']) !!}
+	{!! Form::open(['route' => ['node.store'], 'files' => true], ['class'=>'form-horizontal']) !!}
 
 <div class="row">
 
@@ -79,9 +79,6 @@
 
 		
 
-	  <div class="row form-group">
-	   <label class="col-sm-12 text-right">{{ Form::checkbox('status') }} Опубликовано</label>
-	  </div>
 </div>
 
 	
@@ -92,78 +89,18 @@
 
 
 
-<hr>
-
-
 <div class="row">
 	<div class="col-sm-4" style="background:#eee; height:40px; margin-bottom: 10px; padding: 10px;"><b>{{ __('node.photo') }}</b></div>
 	<div class="col-sm-8" style="background:#eee; height:40px; margin-bottom: 10px; padding: 10px;">{{ Form::file('image', ['accept'=>'image/*']) }}</div>
 </div>
 
-@empty(!$node->image)
-<div class="row">
-	@foreach($node->image as $image)
-		<div class="col-sm-2">
-
-		<div class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;">
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-		  </button>
-		  <ul class="dropdown-menu">
-		    <li><a href="#">Включить</a></li>
-		    <li role="separator" class="divider"></li>
-		    <li><a href="#">Удалить</a></li>
-		  </ul>
-		</div>
-
-		<a data-lightbox="image-{{ $image->id }}" data-title="{{ $node->title }}" href="/storage/{{ $image->uri }}" title="{{ $node->title }}">
-		<img src="{{ route('imagecache', ['small', $image->uri]) }}">
-		</a>	
-
-		</div>
-	@endforeach
-</div>
-@endempty
-
-
-
-
-<hr>
-
 
 
 <div class="row">
-	<div class="col-sm-4" style="background:#eee; height:40px; margin-bottom: 10px; padding: 10px;"><b>{{ __('node.gallery') }}</b></div>
+	<div class="col-sm-4" style="background:#eee; height:40px; margin-bottom: 10px; padding: 10px;"><b>Галерея</b></div>
 	<div class="col-sm-8" style="background:#eee; height:40px; margin-bottom: 10px; padding: 10px;">{{ Form::file('gallery[]', ['accept'=>'image/*', 'multiple']) }}</div>
 </div>
 
-@empty(!$node->gallery)
-<div class="row">
-	@foreach($node->gallery as $photo)
-		<div class="col-sm-2">
-
-		<div class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;">
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-		  </button>
-		  <ul class="dropdown-menu">
-		    <li><a href="#">Включить</a></li>
-		    <li role="separator" class="divider"></li>
-		    <li><a href="#">Удалить</a></li>
-		  </ul>
-		</div>
-
-		<a data-lightbox="photo-{{ $photo->id }}" data-title="{{ $node->title }}" href="/storage/{{ $photo->uri }}" title="{{ $node->title }}">
-		<img src="{{ route('imagecache', ['small', $photo->uri]) }}">
-		</a>	
-
-		</div>
-	@endforeach
-</div>
-@endempty
-
-
-<hr>
 
 <center>{{ Form::submit('Сохранить') }}</center>
 	

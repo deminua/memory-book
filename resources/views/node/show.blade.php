@@ -45,7 +45,7 @@
 									<b>{{ $data->first()->vocabulary->name }}:</b>				
 
 									@foreach ($data as $term)
-										{{ $term->name }}{{ $loop->first ? '' : ', ' }}
+										<a href="{{ route('term.show', $term->id) }}">{{ $term->name }}</a>{{ $loop->first ? '' : ', ' }}
 									@endforeach
 
 									</p>
