@@ -28,6 +28,7 @@ Route::get('/node/{id}', 'NodeController@show')->where('id', '[0-9]+')->name('no
 Route::get('/node/{id}/edit', 'NodeController@edit')->where('id', '[0-9]+')->name('node.edit')->middleware('auth');
 Route::post('/node/{id}/edit', 'NodeController@update')->where('id', '[0-9]+')->name('node.update')->middleware('auth');
 
+Route::get('/gallery', 'NodeController@gallery')->name('gallery.index');
 
 #Route::get('/term/{id}', 'NodeController@term');
 

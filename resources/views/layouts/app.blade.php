@@ -185,7 +185,6 @@
         <p></p>
         <center>
         <h3>Никто не забыт, ничто не забыто!</h3>
-        <p><a title="РАЗДЕЛЫ КНИГИ ПАМЯТИ" href="/category">Все разделы "Книга Памяти Кривой Рог"</a></p>
         </center>
     </div>
 </div>
@@ -276,25 +275,18 @@
     <div class="view view-gallery view-id-gallery view-display-id-block_1">
     <div class="view-content">
     <div id="views-bootstrap-grid-2" class="views-bootstrap-grid-plugin-style">
-    
-    Ожидайте, скоро появится...
-    {{--
-    <div class="row">
-    <div class="col col-sm-12"><span> <span><a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g">Празднование Дня Победы в Кривом Роге в 2015 г.</a></span> </span>
-    <div class="views-field views-field-field-gallery"> 
-    <div class="field-content"><a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/byn_7403_1172x650.jpg?itok=hR8vTky1" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/byn_7414_1172x1038.jpg?itok=BZQPQVh_" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/byn_7443_1172x778.jpg?itok=HpWqJgxE" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/byn_7464_1193x500.jpg?itok=8AdNE04S" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/byn_7478_1201x798.jpg?itok=LUZLNlLt" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2015-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/byn_7507_1201x630.jpg?itok=PE56pKtu" width="64" height="64" alt=""></a></div>
-     </div>
-     </div>
-     </div>
 
-     <div class="row">
-    <div class="col col-sm-12"><span> <span><a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g">Празднование Дня Победы в Кривом Роге в 2014 г. </a></span> </span>
-    <div class="views-field views-field-field-gallery"> 
-    <div class="field-content"><a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/sam_2310_0025921710.jpg?itok=QnPNzbOK" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/sam_2306_4611925601700.jpg?itok=snUZG31d" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/sam_2307_0025921918.jpg?itok=8P35nUkN" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/sam_2308_1347225921700.jpg?itok=AbXahdoM" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/sam_2309_107725291695.jpg?itok=eWBlAfjM" width="64" height="64" alt=""></a> <a href="/content/prazdnovanie-dnya-pobedy-v-krivom-roge-v-2014-g"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/gallery/sam_2288_012925601710.jpg?itok=X6nLSD7k" width="64" height="64" alt=""></a></div>
-     </div>
-     </div>
-     </div>
-    --}}
+        @foreach($gallery->get() as $n)
+            <div class="row">
+                <strong><a title="{{ $n->title }}" href="{{ route('node.show', $n->id) }}">
+                    <div>
+                        @foreach($n->gallery2main as $g)
+                        <img src="{{ route('imagecache', ['gallerymini', $g->uri]) }}">
+                        @endforeach
+                    </div>
+                {{ $n->title }}</a></strong>
+            </div>
+        @endforeach
 
     </div>
     </div>

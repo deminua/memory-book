@@ -25,30 +25,15 @@ class Node extends Model
         return $this->belongsToMany('App\Image', 'field_data_field_image');
     }
 
-    // public function images()
-    // {
-    //     return $this->belongsToMany('App\Image', 'field_data_field_image');
-    // }
-
     public function gallery()
     {
         return $this->belongsToMany('App\Image', 'field_data_field_gallery');
     }
 
-/*    public function getEducationAttribute($education)
+    public function gallery2main()
     {
-        if(isset($education)) { return $education; } else { return 'Неизвестно'; }
+        return $this->belongsToMany('App\Image', 'field_data_field_gallery')->limit(3);
     }
-
-    public function getBirthplaceAttribute($birthplace)
-    {
-        if(isset($birthplace)) { return $birthplace; } else { return 'Неизвестно'; }
-    }
-
-    public function getDeadplaceAttribute($birthplace)
-    {
-        if(isset($deadplace)) { return $deadplace; } else { return 'Неизвестно'; }
-    }*/
 
     public function getBirthdateAttribute($date)
     {   

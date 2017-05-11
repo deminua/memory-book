@@ -154,7 +154,7 @@
 		</div>
 
 		<a data-lightbox="photo-{{ $photo->id }}" data-title="{{ $node->title }}" href="/storage/{{ $photo->uri }}" title="{{ $node->title }}">
-		<img src="{{ route('photocache', ['small', $photo->uri]) }}">
+		<img src="{{ route('imagecache', ['small', $photo->uri]) }}">
 		</a>	
 
 		</div>
@@ -165,15 +165,8 @@
 
 <hr>
 
-
-
-
-
 <center>{{ Form::submit('Сохранить') }}</center>
 	
-
-
-
 	{!! Form::close() !!}
 
 

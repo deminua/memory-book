@@ -6,7 +6,11 @@
 
 <div class="container">
     <div class="row">
+
+
         <div class="col-md-12">
+
+
 
 
 <center>
@@ -17,18 +21,22 @@
 </ul>
 </center>
 
+        <div class="col-md-12"><h1>Галерея</h1></div>
+
+
         @foreach ($nodes as $node)
 
 
-<div class="node node-memorybook node-teaser col-xs-6 col-sm-4 col-md-3 col-lg-2">
 
-<h2><a title="{{ $node->title }}" href="{{ route('node.show', $node) }}">{!! str_replace(' ', '<br>', $node->title) !!}</a></h2>
+<div class="node node-memorybook node-teaser col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+<h2><a title="{{ $node->title }}" href="{{ route('node.show', $node) }}">{!! $node->title !!}</a></h2>
 
 
 <div class="field-type-image">
 
 	@if($node->image->first())
-		<a title="{{ $node->title }}" href="{{ route('node.show', $node) }}"><img src="{{ route('imagecache', ['small', $node->image->first()->uri]) }}"></a>
+		<a title="{{ $node->title }}" href="{{ route('node.show', $node) }}"><img src="{{ route('imagecache', ['gallery', $node->image->first()->uri]) }}"></a>
 	@else
 		<a title="{{ $node->title }}" href="{{ route('node.show', $node) }}"><img src="/image/no-photo.jpg"></a>
 	@endif

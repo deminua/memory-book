@@ -75,8 +75,8 @@ class NodeController extends Controller
     public function show($id)
     {
         $node = Node::with('taxonomy', 'taxonomy.vocabulary')->where('status', true)->findOrFail($id);
-       # if(empty($node)) { return abort('404'); }
-        return view('node.show', compact('node'));
+        if($node->type == 'memorybook') { $node->type = 'node'; }
+        return view($node->type.'.show', compact('node'));
     }
 
 
@@ -154,5 +154,15 @@ class NodeController extends Controller
         $taxonomy = Taxonomy::find($id);
         dump($taxonomy->vocabulary);
     }*/
+
+
+    public function gallery()
+    {
+        $nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'gallery')->where('status', true)->paginate(18);
+        $alphabet = $this->alphabet();
+        return view('gallery.index', compact('nodes', 'alphabet'));
+    }
+
+
 
 }

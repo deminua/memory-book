@@ -32,8 +32,6 @@ return array(
     
     'paths' => array(
         public_path('storage')
-        #public_path('upload'),
-        #public_path('images')
     ),
 
     /*
@@ -57,9 +55,8 @@ return array(
         'medium' => 'App\Filters\Medium',
         'large' => 'App\Filters\Large',
         'mini' => 'App\Filters\Mini',
-        // 'small' => 'Intervention\Image\Templates\Small',
-        // 'medium' => 'Intervention\Image\Templates\Medium',
-        // 'large' => 'Intervention\Image\Templates\Large',
+        'gallery' => 'App\Filters\Gallery',
+        'gallerymini' => 'App\Filters\GalleryMini', 
     ),
 
     /*
