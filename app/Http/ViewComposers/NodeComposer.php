@@ -32,7 +32,9 @@ class NodeComposer
     {	
     	$this->nodes['lastnodes'] = Node::where('type', 'memorybook')->orderBy('updated_at', 'desc')->limit(12);
     	#$this->nodes['mainnodes'] = Node::with('image')->where('type', 'memorybook')->orderBy('updated_at', 'desc')->limit(5);
-    	$this->nodes['mainnodes'] = Node::has('images')->limit(3);
+    	#$this->nodes['mainnodes'] = Node::has('images')->limit(3);
+        $this->nodes['mainnodes'] = Node::with('image')->has('image')->orderBy('updated_at', 'desc')->limit(8);
+        #images
     }
 
     /**

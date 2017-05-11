@@ -25,10 +25,10 @@ class Node extends Model
         return $this->belongsToMany('App\Image', 'field_data_field_image');
     }
 
-    public function images()
-    {
-        return $this->HasMany('App\Image', 'field_data_field_image');
-    }
+    // public function images()
+    // {
+    //     return $this->belongsToMany('App\Image', 'field_data_field_image');
+    // }
 
     public function gallery()
     {

@@ -267,6 +267,7 @@
     </div>
 
 
+
     <div class="col-sm-6">
     <div class="footer-area">
     <div class="region region-footer-third">

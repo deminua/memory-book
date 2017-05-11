@@ -40,13 +40,20 @@
 <div class="view-content">
 <div id="views-bootstrap-grid-1" class="views-bootstrap-grid-plugin-style">
 
-{{--
-<div class="row">
-	
-	<div class="col col-sm-3"><span class="views-field views-field-field-image"> <span class="field-content"><a href="/memory_book/maksimova-galina-kuzminichna"><img typeof="foaf:Image" src="http://memory-book.info/sites/default/files/styles/64x64/public/photo/maksimova_g.k.jpg?itok=QVqD2wbW" width="64" height="64" alt=""></a></span> </span> </div>
 
+
+<div class="row">
+@foreach($mainNodes->get() as $mainNode)
+	<div class="col col-sm-3">
+	<span class="views-field views-field-field-image">
+	<span class="field-content">
+	<a title="{{ $mainNode->title }}" href="{{ route('node.show', $mainNode->id) }}">
+    <img src="{{ route('imagecache', ['mini', $mainNode->image->first()->uri]) }}"></a>
+	</span>
+	</span>
+	</div>
+@endforeach
 </div>
---}}
 
 </div>
 </div>

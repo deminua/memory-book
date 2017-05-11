@@ -56,6 +56,7 @@ return array(
         'small' => 'App\Filters\Small',
         'medium' => 'App\Filters\Medium',
         'large' => 'App\Filters\Large',
+        'mini' => 'App\Filters\Mini',
         // 'small' => 'Intervention\Image\Templates\Small',
         // 'medium' => 'Intervention\Image\Templates\Medium',
         // 'large' => 'Intervention\Image\Templates\Large',
