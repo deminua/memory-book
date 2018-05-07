@@ -2,269 +2,243 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
+use App\Image;
 use App\Node;
 use App\Taxonomy;
 use App\Vocabulary;
-use App\Image;
-use DB;
-use Carbon\Carbon;
-use Storage;
 use File;
-use App\Http\Requests\UploadRequest;
-
-
-class NodeController extends Controller
-{
-
-  public function alphabet($request = null, $from = 192, $to = 223) {
-
-        if(isset($request->q)) { $q = $request->q; } else { $q = ''; }
-
-        $abc = array();
-        $res = [];
-
-        foreach (range(chr(0xC0), chr(0xDF)) as $b)
-        {
-            $abc = iconv('CP1251', 'UTF-8', $b);
-
-            if($abc != 'Ъ' && $abc != 'Ы' && $abc != 'Ь' && $abc != 'Й' && $abc != 'Э') {
-                if($q == $abc)
-                    {
-                        $res[] = '<li class="active"><span>'.$abc.'</span></li>';
-                    } else {
-                        $res[] = '<li><a href="/search/'.$abc.'">'.$abc.'</a></li>';
-                    }
-            }
-            
-        }
-
-        return $res;
-
-    }
-
-
-    public function index()
-    {
-        $nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook');
-        if(!auth()->check()) { $nodes->where('status', true); }
-        $nodes->orderBy('updated_at', 'desc');
-        $nodes = $nodes->paginate(18);
-        $alphabet = $this->alphabet();
-        return view('node.index', compact('nodes', 'alphabet'));
-    }
-
-    public function search_f(Request $request)
-    {
-        $nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook')->where('status', true)->where('title', 'like', $request->q . '%')->paginate(18);
-        $alphabet = $this->alphabet($request);
-        return view('node.index', compact('nodes', 'alphabet'));
-    }
-
-    public function search(Request $request)
-    {
-        $nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook')->where('status', true)->where('title', 'like', '%' . $request->q . '%')->paginate(18);
-        $alphabet = $this->alphabet($request);
-        return view('node.index', compact('nodes', 'alphabet'));
-    }
+use Illuminate\Http\Request;
+
+class NodeController extends Controller {
+
+	public function alphabet($request = null, $from = 192, $to = 223) {
+
+		if (isset($request->q)) {$q = $request->q;} else { $q = '';}
+
+		$abc = array();
+		$res = [];
+
+		foreach (range(chr(0xC0), chr(0xDF)) as $b) {
+			$abc = iconv('CP1251', 'UTF-8', $b);
+
+			if ($abc != 'Ъ' && $abc != 'Ы' && $abc != 'Ь' && $abc != 'Й' && $abc != 'Э') {
+				if ($q == $abc) {
+					$res[] = '<li class="active"><span>' . $abc . '</span></li>';
+				} else {
+					$res[] = '<li><a href="/search/' . $abc . '">' . $abc . '</a></li>';
+				}
+			}
+
+		}
+
+		return $res;
+
+	}
+
+	public function index() {
+		$nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook');
+		if (!auth()->check()) {$nodes->where('status', true);}
+		$nodes->orderBy('updated_at', 'desc');
+		$nodes = $nodes->paginate(18);
+		$alphabet = $this->alphabet();
+		return view('node.index', compact('nodes', 'alphabet'));
+	}
+
+	public function noPublic() {
+		$nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook');
+		$nodes->where('status', false);
+		$nodes->orderBy('updated_at', 'desc');
+		$nodes = $nodes->paginate(18);
+		$alphabet = $this->alphabet();
+		return view('node.index', compact('nodes', 'alphabet'));
+	}
+
+	public function search_f(Request $request) {
+		$nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook')->where('status', true)->where('title', 'like', $request->q . '%')->paginate(18);
+		$alphabet = $this->alphabet($request);
+		return view('node.index', compact('nodes', 'alphabet'));
+	}
 
+	public function search(Request $request) {
+		$nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'memorybook')->where('status', true)->where('title', 'like', '%' . $request->q . '%')->paginate(18);
+		$alphabet = $this->alphabet($request);
+		return view('node.index', compact('nodes', 'alphabet'));
+	}
 
-    public function search_post(Request $request)
-    {   
-        return redirect()->route('node.search', $request->q);
-    }
+	public function search_post(Request $request) {
+		return redirect()->route('node.search', $request->q);
+	}
 
-    public function show($id)
-    {
-        
-        $node = Node::with('taxonomy', 'taxonomy.vocabulary');
-        if(!auth()->check()) { $node->where('status', true);  }
-        $node = $node->findOrFail($id);
-        if($node->type == 'memorybook') { $node->type = 'node'; }
-        return view($node->type.'.show', compact('node'));
-    }
+	public function show($id) {
 
-    public function create()
-    {
-        $node = new Node;
-        $vocabulary = Vocabulary::get();
-        return view('node.create', compact('node', 'vocabulary'));
-    }
+		$node = Node::with('taxonomy', 'taxonomy.vocabulary');
+		if (!auth()->check()) {$node->where('status', true);}
+		$node = $node->findOrFail($id);
+		if ($node->type == 'memorybook') {$node->type = 'node';}
+		return view($node->type . '.show', compact('node'));
+	}
 
-    public function edit($id)
-    {
-        $node = Node::with('taxonomy', 'taxonomy.vocabulary')->find($id);
-        $vocabulary = Vocabulary::get();
-        return view('node.edit', compact('node', 'vocabulary'));
-    }
-
-    public function saveImage(Request $request, $dir, $field) {
-
-        if($request->hasFile($field) and $request->file($field)->isValid()) {
-            $image = [];
-            $request_image = $request->file($field);
-            $filehash = md5(md5_file($request_image->getpathname()).time());
-            $image['filename'] = $filehash.'.'.$request_image->getClientOriginalExtension();
-            $image['uri'] = $dir.'/'.$image['filename'];
-            $image['filesize'] = $request_image->getsize();
-            $image['filemime'] = $request_image->getmimeType();
-            if($image['filemime']) {
-                $mime = explode('/', $image['filemime']);
-               if($mime[0] != 'image') {
-                    return false;
-               }
-            }
-            $request->image->storeAs('public', $image['uri']);
+	public function create() {
+		$node = new Node;
+		$vocabulary = Vocabulary::get();
+		return view('node.create', compact('node', 'vocabulary'));
+	}
 
-            $img = new Image;
-            $img->fill($image);
-            $img->save();
+	public function edit($id) {
+		$node = Node::with('taxonomy', 'taxonomy.vocabulary')->find($id);
+		$vocabulary = Vocabulary::get();
+		return view('node.edit', compact('node', 'vocabulary'));
+	}
 
-            return $img;
+	public function saveImage(Request $request, $dir, $field) {
 
-        }
+		if ($request->hasFile($field) and $request->file($field)->isValid()) {
+			$image = [];
+			$request_image = $request->file($field);
+			$filehash = md5(md5_file($request_image->getpathname()) . time());
+			$image['filename'] = $filehash . '.' . $request_image->getClientOriginalExtension();
+			$image['uri'] = $dir . '/' . $image['filename'];
+			$image['filesize'] = $request_image->getsize();
+			$image['filemime'] = $request_image->getmimeType();
+			if ($image['filemime']) {
+				$mime = explode('/', $image['filemime']);
+				if ($mime[0] != 'image') {
+					return false;
+				}
+			}
+			$request->image->storeAs('public', $image['uri']);
 
-        return false;
+			$img = new Image;
+			$img->fill($image);
+			$img->save();
 
-    }
+			return $img;
 
+		}
 
-    public function saveImages(Request $request, $dir, $field) {
-                
+		return false;
 
-        if(count($request->$field) >= 1) {
+	}
 
-            $gallery = [];
+	public function saveImages(Request $request, $dir, $field) {
 
-            foreach ($request->file($field) as $g) {
-                    $image = [];
-                    $request_image = $g;
-                    $filehash = md5(md5_file($request_image->getpathname()).time());
-                    $image['filename'] = $filehash.'.'.$request_image->getClientOriginalExtension();
-                    $image['uri'] = $dir.'/'.$image['filename'];
-                    $image['filesize'] = $request_image->getsize();
-                    $image['filemime'] = $request_image->getmimeType();
+		if (count($request->$field) >= 1) {
 
-                    if($image['filemime']) {
-                        $mime = explode('/', $image['filemime']);
-                       if($mime[0] == 'image') {
+			$gallery = [];
 
-                            $g->storeAs('public', $image['uri']);
+			foreach ($request->file($field) as $g) {
+				$image = [];
+				$request_image = $g;
+				$filehash = md5(md5_file($request_image->getpathname()) . time());
+				$image['filename'] = $filehash . '.' . $request_image->getClientOriginalExtension();
+				$image['uri'] = $dir . '/' . $image['filename'];
+				$image['filesize'] = $request_image->getsize();
+				$image['filemime'] = $request_image->getmimeType();
 
-                            $img = new Image;
-                            $img->fill($image);
-                            $img->save();
+				if ($image['filemime']) {
+					$mime = explode('/', $image['filemime']);
+					if ($mime[0] == 'image') {
 
-                            $gallery[] = $img;
+						$g->storeAs('public', $image['uri']);
 
-                       }
-                    }
+						$img = new Image;
+						$img->fill($image);
+						$img->save();
 
+						$gallery[] = $img;
 
+					}
+				}
 
-            }
+			}
 
-            return $gallery;
+			return $gallery;
 
-        }
+		}
 
-        return false;
+		return false;
 
-           
-    }
+	}
 
-    public function update(Request $request, $id = null)
-    {                       
-        
-        $photo = $this->saveImage($request, 'photo', 'image');
-        $gallery = $this->saveImages($request, 'gallery', 'gallery');
-        
-        $data = $request->all();
+	public function update(Request $request, $id = null) {
 
-        if(!isset($data['status'])) { $data['status'] = false; }
-        
-        unset($data['vocabulary']);
+		$photo = $this->saveImage($request, 'photo', 'image');
+		$gallery = $this->saveImages($request, 'gallery', 'gallery');
 
-        $sync = [];
-        foreach ($request->vocabulary as $vocabulary_id => $name) {
-           if(!empty($name)){
-             $term = Taxonomy::firstOrCreate(['name' => $name, 'vocabulary_id' => $vocabulary_id]);
-             $sync[] = $term->id;
-           }
-        }
+		$data = $request->all();
 
-        $node = Node::find($id);
-        $node->fill($data);
-        $node->taxonomy()->sync($sync);
-        if(isset($photo)) { $node->image()->attach($photo); }
-        if(isset($gallery) and is_array($gallery)) { $node->gallery()->attach(array_pluck($gallery, 'id')); }
-        $node->save();
-        return back();
+		if (!isset($data['status'])) {$data['status'] = false;}
 
-    }
+		unset($data['vocabulary']);
 
+		$sync = [];
+		foreach ($request->vocabulary as $vocabulary_id => $name) {
+			if (!empty($name)) {
+				$term = Taxonomy::firstOrCreate(['name' => $name, 'vocabulary_id' => $vocabulary_id]);
+				$sync[] = $term->id;
+			}
+		}
 
-    public function store(Request $request)
-    {                       
-        
-        $photo = $this->saveImage($request, 'photo', 'image');
-        $gallery = $this->saveImages($request, 'gallery', 'gallery');
+		$node = Node::find($id);
+		$node->fill($data);
+		$node->taxonomy()->sync($sync);
+		if (isset($photo)) {$node->image()->attach($photo);}
 
+		if (isset($gallery) and is_array($gallery)) {$node->gallery()->attach(array_pluck($gallery, 'id'));}
+		$node->save();
+		return back();
 
-        $data = $request->all();
+	}
 
-        if(!isset($data['status'])) { $data['status'] = false; }
-        $data['type'] = 'memorybook';
-        
-        unset($data['vocabulary']);
+	public function store(Request $request) {
 
+		$photo = $this->saveImage($request, 'photo', 'image');
+		$gallery = $this->saveImages($request, 'gallery', 'gallery');
 
-            $sync = [];
-            foreach ($request->vocabulary as $vocabulary_id => $name) {
-               if(!empty($name)){
-                 $term = Taxonomy::firstOrCreate(['name' => $name, 'vocabulary_id' => $vocabulary_id]);
-                 $sync[] = $term->id;
-               }
-            }
-        
-            if(empty($sync)) { $sync = false; }
+		$data = $request->all();
 
-        $node = new Node;
-        $node->fill($data);
-        $node->save();
+		if (!isset($data['status'])) {$data['status'] = false;}
+		$data['type'] = 'memorybook';
 
+		unset($data['vocabulary']);
 
-        if(isset($sync)) { $node->taxonomy()->attach($sync); }
-        if(isset($photo)) { $node->image()->attach($photo); }
-        if(isset($gallery) and is_array($gallery)) { $node->gallery()->attach(array_pluck($gallery, 'id')); }
-        
-        return redirect()->route('node.index')->with('status', __('node.you_data_saved'));
-        
+		$sync = [];
+		foreach ($request->vocabulary as $vocabulary_id => $name) {
+			if (!empty($name)) {
+				$term = Taxonomy::firstOrCreate(['name' => $name, 'vocabulary_id' => $vocabulary_id]);
+				$sync[] = $term->id;
+			}
+		}
 
-    }
+		if (empty($sync)) {$sync = false;}
 
+		$node = new Node;
+		$node->fill($data);
+		$node->save();
 
-    public function term($id)
-    {   
+		if (isset($sync)) {$node->taxonomy()->attach($sync);}
+		if (isset($photo)) {$node->image()->attach($photo);}
+		if (isset($gallery) and is_array($gallery)) {$node->gallery()->attach(array_pluck($gallery, 'id'));}
 
-        $nodes = Node::with('image')->where('status', true)->whereHas('tags', function ($query) use($id) {
-            $query->where('taxonomy_term_data.id', $id);
-        })->paginate(18);
+		return redirect()->route('node.index')->with('status', __('node.you_data_saved'));
 
-        $term = Taxonomy::find($id);
+	}
 
-        return view('term.index', compact('nodes', 'term'));
-    }
+	public function term($id) {
 
+		$nodes = Node::with('image')->where('status', true)->whereHas('tags', function ($query) use ($id) {
+			$query->where('taxonomy_term_data.id', $id);
+		})->paginate(18);
 
-    public function gallery()
-    {
-        $nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'gallery')->where('status', true)->paginate(18);
-        $alphabet = $this->alphabet();
-        return view('gallery.index', compact('nodes', 'alphabet'));
-    }
+		$term = Taxonomy::find($id);
 
+		return view('term.index', compact('nodes', 'term'));
+	}
 
+	public function gallery() {
+		$nodes = Node::with('taxonomy', 'taxonomy.vocabulary', 'image')->where('type', 'gallery')->where('status', true)->paginate(18);
+		$alphabet = $this->alphabet();
+		return view('gallery.index', compact('nodes', 'alphabet'));
+	}
 
 }

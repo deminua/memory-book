@@ -11,16 +11,23 @@ Route::get('/node/{id}', 'NodeController@show')->where('id', '[0-9]+')->name('no
 Route::get('/node/{id}/edit', 'NodeController@edit')->where('id', '[0-9]+')->name('node.edit')->middleware('auth');
 Route::post('/node/{id}/edit', 'NodeController@update')->where('id', '[0-9]+')->name('node.update')->middleware('auth');
 
+Route::get('/node/noPublic', 'NodeController@noPublic')->name('node.noPublic');
+
 Route::get('/gallery', 'NodeController@gallery')->name('gallery.index');
 
 Route::get('/term/{id}', 'NodeController@term')->name('term.show');
 
+Route::get('/admin', 'AdminController@index')->name('admin.index');
+Route::get('/admin/{id}', 'AdminController@edit')->where('id', '[0-9]+')->name('admin.edit');
+Route::post('/admin/{id}', 'AdminController@update')->where('id', '[0-9]+')->name('admin.update');
+Route::post('/admin', 'AdminController@store')->name('admin.store');
+
 Route::get('/', function () {
-    return view('main');
+	return view('main');
 })->name('main');
 
 Auth::routes();
-Route::any('register', function () { return abort('404'); });
-Route::any('password', function () { return abort('404'); });
-Route::any('password/reset', function () { return abort('404'); });
-Route::any('password/email', function () { return abort('404'); });
+Route::any('register', function () {return abort('404');});
+Route::any('password', function () {return abort('404');});
+Route::any('password/reset', function () {return abort('404');});
+Route::any('password/email', function () {return abort('404');});

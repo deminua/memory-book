@@ -144,8 +144,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div>
   <a style="cursor: pointer" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->name }} <span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Пункт 1</a></li>
-      <li><a href="#">Пункт 2</a></li>
+      <li><a href="{{ route('admin.index') }}">Пользователи</a></li>
+      <li><a href="{{ route('node.noPublic') }}">Не опубликовано</a></li>
       <li class="divider"></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
@@ -361,16 +361,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ asset('/node_modules/lightbox2/js/lightbox.min.js') }}"></script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-96045383-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
 
 </body>
 </html>
