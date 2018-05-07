@@ -15,6 +15,14 @@
 
     <link rel="stylesheet" href="{{ asset('/node_modules/lightbox2/css/lightbox.min.css') }}">
 
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K9S2ZMD');</script>
+<!-- End Google Tag Manager -->
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -28,6 +36,11 @@
 
 
 <body class="html front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-11 node-type-page sff-7 slff-7 hff-7 pff-7 form-style-1">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K9S2ZMD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
     <div id="app">
 
@@ -149,10 +162,10 @@
 </div>
 </li>
 @endif
-                         
-                         
 
-                         
+
+
+
                         </ul>
                         </div>
                          </div>
@@ -362,4 +375,3 @@
 </body>
 </html>
 
-        
