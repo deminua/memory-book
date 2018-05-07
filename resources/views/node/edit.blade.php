@@ -69,23 +69,45 @@
 	   	<div class="col-sm-6">
 
 	   		@if($node->taxonomy->where('vocabulary_id', $v->id)->first())
-	   			{!! Form::text('vocabulary['.$v->id.']', $node->taxonomy->where('vocabulary_id', $v->id)->first()->name, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!}
+
+	   			<!-- <autocomplete
+				    url="/voc/{{ $v->id }}"
+				    anchor="name"
+				    label="writer"
+				    :min="1"
+				    id="{{ $v->machine_name }}"
+				    name="vocabulary[{{ $v->id }}]"
+				    :classes="{ wrapper: 'form-wrapper', input: 'form-control' }"
+				    placeholder="{{ $v->description }}">
+			  	</autocomplete> -->
+			  	{!! Form::text('vocabulary['.$v->id.']', $node->taxonomy->where('vocabulary_id', $v->id)->first()->name, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!}
 	   		@else
-	   			{!! Form::text('vocabulary['.$v->id.']', null, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!}
+
+	   			<autocomplete
+				    url="/voc/{{ $v->id }}"
+				    anchor="name"
+				    label="writer"
+				    :min="1"
+				    id="{{ $v->machine_name }}"
+				    name="vocabulary[{{ $v->id }}]"
+				    :classes="{ wrapper: 'form-wrapper', input: 'form-control' }"
+				    placeholder="{{ $v->description }}">
+			  	</autocomplete>
+			  	<!-- {!! Form::text('vocabulary['.$v->id.']', null, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!} -->
 	   		@endif
 	  	</div>
 	 </div>
 	  @endforeach
 
-		
+
 
 	  <div class="row form-group">
 	   <label class="col-sm-12 text-right">{{ Form::checkbox('status') }} Опубликовано</label>
 	  </div>
 </div>
 
-	
-	 
+
+
 
 </div>
 
@@ -105,20 +127,20 @@
 	@foreach($node->image as $image)
 		<div class="col-sm-2">
 
-		<div class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;">
+<!-- 		<div class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+		  	<span class="fa fa-edit" aria-hidden="true"></span>
 		  </button>
 		  <ul class="dropdown-menu">
 		    <li><a href="#">Включить</a></li>
 		    <li role="separator" class="divider"></li>
 		    <li><a href="#">Удалить</a></li>
 		  </ul>
-		</div>
+		</div> -->
 
 		<a data-lightbox="image-{{ $image->id }}" data-title="{{ $node->title }}" href="/storage/{{ $image->uri }}" title="{{ $node->title }}">
 		<img src="{{ route('imagecache', ['small', $image->uri]) }}">
-		</a>	
+		</a>
 
 		</div>
 	@endforeach
@@ -142,7 +164,7 @@
 	@foreach($node->gallery as $photo)
 		<div class="col-sm-2">
 
-		<div class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;">
+<!-- 		<div class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;">
 		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		  	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 		  </button>
@@ -151,11 +173,11 @@
 		    <li role="separator" class="divider"></li>
 		    <li><a href="#">Удалить</a></li>
 		  </ul>
-		</div>
+		</div> -->
 
 		<a data-lightbox="photo-{{ $photo->id }}" data-title="{{ $node->title }}" href="/storage/{{ $photo->uri }}" title="{{ $node->title }}">
 		<img src="{{ route('imagecache', ['small', $photo->uri]) }}">
-		</a>	
+		</a>
 
 		</div>
 	@endforeach
@@ -165,15 +187,18 @@
 
 <hr>
 
-<center>{{ Form::submit('Сохранить') }}</center>
-	
+<center>
+{{ Form::submit('Сохранить') }}
+<a class="btn" onclick="return confirm('Удалить запись, вы уверены?')" href="{{ route('node.delete', ['id'=>$node->id ]) }}">Удалить</a>
+</center>
+
 	{!! Form::close() !!}
 
 
 
 
-			
-			
+
+
 
 
     </div>

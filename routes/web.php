@@ -11,11 +11,13 @@ Route::get('/node/{id}', 'NodeController@show')->where('id', '[0-9]+')->name('no
 Route::get('/node/{id}/edit', 'NodeController@edit')->where('id', '[0-9]+')->name('node.edit')->middleware('auth');
 Route::post('/node/{id}/edit', 'NodeController@update')->where('id', '[0-9]+')->name('node.update')->middleware('auth');
 
-Route::get('/node/noPublic', 'NodeController@noPublic')->name('node.noPublic');
+Route::get('/node/noPublic', 'NodeController@noPublic')->name('node.noPublic')->middleware('auth');
+Route::get('/node/{id}/delete', 'NodeController@delete')->name('node.delete')->middleware('auth');
 
 Route::get('/gallery', 'NodeController@gallery')->name('gallery.index');
 
 Route::get('/term/{id}', 'NodeController@term')->name('term.show');
+Route::get('/voc/{id}', 'NodeController@voc')->name('term.voc');
 
 Route::get('/admin', 'AdminController@index')->name('admin.index');
 Route::get('/admin/{id}', 'AdminController@edit')->where('id', '[0-9]+')->name('admin.edit');

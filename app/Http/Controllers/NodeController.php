@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Image;
 use App\Node;
 use App\Taxonomy;
+use App\TaxonomyTerm;
 use App\Vocabulary;
 use File;
 use Illuminate\Http\Request;
+use Storage;
 
 class NodeController extends Controller {
 
@@ -78,10 +80,33 @@ class NodeController extends Controller {
 		return view($node->type . '.show', compact('node'));
 	}
 
+	public function delete(Request $request) {
+		$node = Node::find($request->id);
+
+		if (Storage::disk('public')->delete(array_pluck($node->image, 'uri'))) {
+			$node->image()->detach(array_pluck($node->image, 'id'));
+			foreach ($node->image as $img) {
+				$img->delete();
+			}
+		}
+
+		if (Storage::disk('public')->delete(array_pluck($node->gallery, 'uri'))) {
+			$node->gallery()->detach(array_pluck($node->gallery, 'id'));
+			foreach ($node->gallery as $g) {
+				$g->delete();
+			}
+		}
+
+		$node->delete();
+
+		return redirect()->route('node.noPublic');
+	}
+
 	public function create() {
 		$node = new Node;
 		$vocabulary = Vocabulary::get();
-		return view('node.create', compact('node', 'vocabulary'));
+		$taxonomyterm = TaxonomyTerm::where('status', true)->get();
+		return view('node.create', compact('node', 'vocabulary', 'taxonomyterm'));
 	}
 
 	public function edit($id) {
@@ -158,6 +183,12 @@ class NodeController extends Controller {
 
 		return false;
 
+	}
+
+	public function voc(Request $request, $id = null) {
+		$q = htmlspecialchars($request->input('q'), ENT_QUOTES);
+		$taxonomyterm = TaxonomyTerm::where('status', true)->where('name', 'like', '%' . $q . '%')->where('vocabulary_id', $id)->get();
+		return $taxonomyterm;
 	}
 
 	public function update(Request $request, $id = null) {

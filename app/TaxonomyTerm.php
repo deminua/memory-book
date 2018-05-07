@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaxonomyTerm extends Model
-{
+class TaxonomyTerm extends Model {
 	protected $table = 'taxonomy_term_data';
 
-    protected $fillable = [
-        'name', 
-    ];
+	protected $fillable = [
+		'name', 'status',
+	];
 
 	// public function TaxonomyIndexPivot(Model $parent, array $attributes, $table, $exists)
 	// {
@@ -22,15 +21,14 @@ class TaxonomyTerm extends Model
 	//     return new YourCustomPivot('App\TaxonomyTerm', 'nid', 'taxonomy_index', 'tid');
 	// }
 
-    // public function nodes()
-    // {
-    //     return $this->belongsToMany('App\Node', 'taxonomy_index', 'nid', 'tid');
-    // }
+	// public function nodes()
+	// {
+	//     return $this->belongsToMany('App\Node', 'taxonomy_index', 'nid', 'tid');
+	// }
 
-    // public function nodes()
-    // {
-    //     return $this->belongsToMany('App\Node')->using('App\UserRole');
-    // }
-
+	// public function nodes()
+	// {
+	//     return $this->belongsToMany('App\Node')->using('App\UserRole');
+	// }
 
 }

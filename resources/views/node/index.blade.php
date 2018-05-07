@@ -30,8 +30,8 @@
 
 @if (!Auth::guest())
 		<a class="btn-group" style="position: absolute; margin-left:5px; margin-top:5px;" href="{{ route('node.edit', $node) }}">
-		  <span type="button" class="btn btn-default">
-		  	<span class="glyphicon glyphicon-pencil"></span>
+		  <span type="button" class="btn">
+		  	<span class="fa fa-edit"></span>
 		  </span>
 		</a>
 @endif
@@ -50,8 +50,8 @@
 
 </div>
 
-  
-  
+
+
 
 
 
@@ -59,13 +59,13 @@
 
 
 
-        
-        
+
+
 
         </div>
 
         <div class="col-md-12"><center>{{ $nodes->links() }}</center></div>
-        
+
     </div>
 </div>
 

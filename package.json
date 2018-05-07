@@ -17,5 +17,10 @@
     "laravel-mix": "0.*",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "jquery.tagify": "^0.1.0",
+    "lightbox2": "^2.10.0",
+    "vue2-autocomplete-js": "^0.2.2"
   }
 }

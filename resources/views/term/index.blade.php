@@ -36,8 +36,8 @@
 
 </div>
 
-  
-  
+
+
 
 
 
@@ -45,13 +45,13 @@
 
 
 
-        
-        
+
+
 
         </div>
 
         <div class="col-md-12"><center>{{ $nodes->links() }}</center></div>
-        
+
     </div>
 </div>
 

@@ -4,9 +4,6 @@
 <div class="container">
     <div class="node-memorybook">
 
-
-
-
 	{!! Form::open(['route' => ['node.store'], 'files' => true], ['class'=>'form-horizontal']) !!}
 
 <div class="row">
@@ -16,38 +13,38 @@
 
 	  <div class="row form-group">
 	   {!! Form::label(__('node.fullname'), null, ['for' => 'title', 'class'=>'col-sm-5 control-label']) !!}
-	   <div class="col-sm-7">{!! Form::text('title', null, ['class'=>'form-control', 'required'=>'required', 'id'=>'title']) !!}</div>
+	   <div class="col-sm-7">{!! Form::text('title', null, ['placeholder'=>'Фамилия Имя Отчество', 'class'=>'form-control', 'required'=>'required', 'id'=>'title']) !!}</div>
 	  </div>
 
 	  <hr style="margin-bottom: 15px; margin-top: 0px;">
 
 	  <div class="row form-group">
 	   {!! Form::label(__('node.birthdate'), null, ['for' => 'birthdate', 'class'=>'col-sm-5 control-label']) !!}
-	   <div class="col-sm-7">{!! Form::text('birthdate', null, ['class'=>'form-control', 'id'=>'birthdate']) !!}</div>
+	   <div class="col-sm-7">{!! Form::text('birthdate', null, ['placeholder'=>'01.01.1900', 'class'=>'form-control', 'id'=>'birthdate']) !!}</div>
 	  </div>
 
 	  <div class="row form-group">
 	   {!! Form::label(__('node.birthplace'), null, ['for' => 'birthplace', 'class'=>'col-sm-5 control-label']) !!}
-	   <div class="col-sm-7">{!! Form::text('birthplace', null, ['class'=>'form-control', 'id'=>'birthplace']) !!}</div>
+	   <div class="col-sm-7">{!! Form::text('birthplace', null, ['placeholder'=>'Днепропетровская обл., Кривой Рог', 'class'=>'form-control', 'id'=>'birthplace']) !!}</div>
 	  </div>
 
 	  <hr style="margin-bottom: 15px; margin-top: 0px;">
 
 	  <div class="row form-group">
 	   {!! Form::label(__('node.deaddate'), null, ['for' => 'deaddate', 'class'=>'col-sm-5 control-label']) !!}
-	   <div class="col-sm-7">{!! Form::text('deaddate', null, ['class'=>'form-control', 'id'=>'deaddate']) !!}</div>
+	   <div class="col-sm-7">{!! Form::text('deaddate', null, ['placeholder'=>'01.01.1944', 'class'=>'form-control', 'id'=>'deaddate']) !!}</div>
 	  </div>
 
 	  <div class="row form-group">
 	   {!! Form::label(__('node.deadplace'), null, ['for' => 'deadplace', 'class'=>'col-sm-5 control-label']) !!}
-	   <div class="col-sm-7">{!! Form::text('deadplace', null, ['class'=>'form-control', 'id'=>'deadplace']) !!}</div>
+	   <div class="col-sm-7">{!! Form::text('deadplace', null, ['placeholder'=>'Днепропетровская обл., Кривой Рог', 'class'=>'form-control', 'id'=>'deadplace']) !!}</div>
 	  </div>
 
 	  <hr style="margin-bottom: 15px; margin-top: 0px;">
 
 	  <div class="row form-group">
 	   {!! Form::label(__('node.education'), null, ['for' => 'education', 'class'=>'col-sm-5 control-label']) !!}
-	   <div class="col-sm-7">{!! Form::text('education', null, ['class'=>'form-control', 'id'=>'education']) !!}</div>
+	   <div class="col-sm-7">{!! Form::text('education', null, ['placeholder'=>'начальное, н/среднее или среднее...', 'class'=>'form-control', 'id'=>'education']) !!}</div>
 	  </div>
 
 	  <div class="row form-group">
@@ -62,27 +59,50 @@
 
 </div>
 
+
 <div class="col-sm-6"  style="border-left: 1px #c2c2c2 solid;">
 	  @foreach($vocabulary as $v)
 	  <div class="row form-group">
-	   	{!! Form::label($v->name, null, ['for' => $v->machine_name, 'class'=>'col-sm-6 control-label']) !!}
-	   	<div class="col-sm-6">
+	   	{!! Form::label($v->name, null, ['for' => $v->machine_name, 'class'=>'col-sm-4 control-label']) !!}
+	   	<div class="col-sm-8">
 
 	   		@if($node->taxonomy->where('vocabulary_id', $v->id)->first())
-	   			{!! Form::text('vocabulary['.$v->id.']', $node->taxonomy->where('vocabulary_id', $v->id)->first()->name, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!}
+				<autocomplete
+				    url="/voc/{{ $v->id }}"
+				    anchor="name"
+				    label="writer"
+				    :min="1"
+				    value="{{ $node->taxonomy->where('vocabulary_id', $v->id)->first()->name }}"
+				    id="{{ $v->machine_name }}"
+				    name="vocabulary[{{ $v->id }}]"
+				    :classes="{ wrapper: 'form-wrapper', input: 'form-control' }"
+				    placeholder="{{ $v->description }}">
+			  	</autocomplete>
+	   			<!-- {!! Form::text('vocabulary['.$v->id.']', $node->taxonomy->where('vocabulary_id', $v->id)->first()->name, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!} -->
 	   		@else
-	   			{!! Form::text('vocabulary['.$v->id.']', null, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!}
+				<autocomplete
+				    url="/voc/{{ $v->id }}"
+				    anchor="name"
+				    label="writer"
+				    :min="1"
+				    id="{{ $v->machine_name }}"
+				    name="vocabulary[{{ $v->id }}]"
+				    :classes="{ wrapper: 'form-wrapper', input: 'form-control' }"
+				    placeholder="{{ $v->description }}">
+			  	</autocomplete>
+	   			<!-- {!! Form::text('vocabulary['.$v->id.']', null, ['class'=>'form-control', 'id'=>$v->machine_name, 'placeholder'=>$v->description]) !!} -->
 	   		@endif
+
 	  	</div>
 	 </div>
 	  @endforeach
 
-		
+
 
 </div>
 
-	
-	 
+
+
 
 </div>
 
@@ -103,14 +123,14 @@
 
 
 <center>{{ Form::submit('Сохранить') }}</center>
-	
+
 	{!! Form::close() !!}
 
 
 
 
-			
-			
+
+
 
 
     </div>

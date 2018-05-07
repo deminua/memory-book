@@ -4,6 +4,8 @@ $('.carousel').carousel({
   interval: 4000
 });
 
+
+
 		$(window).scroll(function() {
 			if($(this).scrollTop() != 0) {
 				$("#toTop").addClass("show");	

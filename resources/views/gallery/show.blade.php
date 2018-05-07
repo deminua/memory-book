@@ -5,11 +5,11 @@
     <div class="row node-memorybook">
 
 
-<div class="col-sm-12"><h1 class="title" id="page-title">{{ $node->title }}</h1></div>
+<div class="col-sm-12"><h1 class="title" id="page-title">{{ $node->title }} @if (!Auth::guest())<a href="{{ route('node.edit', $node) }}"><span class="fa fa-edit"></span></a>@endif</h1></div>
 
 
 				<div id="biografy" class="clearfix col-sm-12">
-					
+
 					@empty(!$node->info)
 					<div class="field field-name-body field-type-text-with-summary field-label-hidden">
 					<div class="field-item even"><i>Источник: {{ $node->info }}</i></div>
@@ -31,8 +31,8 @@
 				</div>
 
 
-			
-			
+
+
 
 
     </div>
