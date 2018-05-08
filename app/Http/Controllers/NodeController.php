@@ -191,6 +191,31 @@ class NodeController extends Controller {
 		return $taxonomyterm;
 	}
 
+	public function show_tt(Request $request) {
+		$status = false;
+		if ($request->status == 'true') {$status = true;}
+		$tt = TaxonomyTerm::withCount('nodes')->where('status', $status)->orderBy('id', 'desc')->get();
+		return $tt;
+	}
+
+	public function list_tt() {
+		return view('term.list');
+	}
+
+	public function update_tt(Request $request) {
+		$data = $request->all();
+		$tt = TaxonomyTerm::findOrFail($request->id);
+		$tt->fill($data);
+		$tt->save();
+		return $tt;
+	}
+	public function delete_tt(Request $request) {
+		$tt = TaxonomyTerm::findOrFail($request->id);
+		$tt->nodes()->detach();
+		$tt->delete();
+		return $tt;
+	}
+
 	public function update(Request $request, $id = null) {
 
 		$photo = $this->saveImage($request, 'photo', 'image');
@@ -257,7 +282,9 @@ class NodeController extends Controller {
 
 	public function term($id) {
 
-		$nodes = Node::with('image')->where('status', true)->whereHas('tags', function ($query) use ($id) {
+		$nodes = Node::with('image');
+		if (!auth()->check()) {$nodes->where('status', true);}
+		$nodes = $nodes->whereHas('tags', function ($query) use ($id) {
 			$query->where('taxonomy_term_data.id', $id);
 		})->paginate(18);
 

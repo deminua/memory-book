@@ -23,6 +23,7 @@ import Autocomplete from 'vue2-autocomplete-js';
 Vue.component('example', require('./components/Example.vue'));
 */
 
+Vue.component('texterm', require('./components/TaxTerm.vue'));
 
 
 const app = new Vue({

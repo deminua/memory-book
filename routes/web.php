@@ -16,6 +16,11 @@ Route::get('/node/{id}/delete', 'NodeController@delete')->name('node.delete')->m
 
 Route::get('/gallery', 'NodeController@gallery')->name('gallery.index');
 
+Route::get('/term', 'NodeController@list_tt')->name('tt.index')->middleware('auth');
+Route::get('/json/term', 'NodeController@show_tt')->name('tt.show')->middleware('auth');
+Route::post('/json/term', 'NodeController@update_tt')->name('tt.update')->middleware('auth');
+Route::delete('/json/term', 'NodeController@delete_tt')->name('tt.delete')->middleware('auth');
+
 Route::get('/term/{id}', 'NodeController@term')->name('term.show');
 Route::get('/voc/{id}', 'NodeController@voc')->name('term.voc');
 

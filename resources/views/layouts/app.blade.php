@@ -146,6 +146,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <ul class="dropdown-menu">
       <li><a href="{{ route('admin.index') }}">Пользователи</a></li>
       <li><a href="{{ route('node.noPublic') }}">Не опубликовано</a></li>
+      <li><a href="{{ route('tt.index') }}">Термины</a></li>
       <li class="divider"></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"

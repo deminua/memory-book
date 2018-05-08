@@ -11,24 +11,10 @@ class TaxonomyTerm extends Model {
 		'name', 'status',
 	];
 
-	// public function TaxonomyIndexPivot(Model $parent, array $attributes, $table, $exists)
-	// {
-	//     return new YourCustomPivot($parent, $attributes, $table, $exists);
-	// }
+	public $timestamps = false;
 
-	// public function TaxonomyIndexPivot()
-	// {
-	//     return new YourCustomPivot('App\TaxonomyTerm', 'nid', 'taxonomy_index', 'tid');
-	// }
-
-	// public function nodes()
-	// {
-	//     return $this->belongsToMany('App\Node', 'taxonomy_index', 'nid', 'tid');
-	// }
-
-	// public function nodes()
-	// {
-	//     return $this->belongsToMany('App\Node')->using('App\UserRole');
-	// }
+	public function nodes() {
+		return $this->belongsToMany('App\Node', 'node_taxonomy', 'taxonomy_id', 'node_id');
+	}
 
 }
