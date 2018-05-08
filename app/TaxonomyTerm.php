@@ -11,6 +11,10 @@ class TaxonomyTerm extends Model {
 		'name', 'status',
 	];
 
+	protected $casts = [
+		'status' => 'boolean',
+	];
+
 	public $timestamps = false;
 
 	public function nodes() {
