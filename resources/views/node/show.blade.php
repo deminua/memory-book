@@ -45,7 +45,7 @@
 
 								@foreach($node->taxonomy->groupby('vocabulary_id') as $data)
 									<p>
-									<b>{{ $data->first()->vocabulary->name }}:</b>
+									@if($data->first()->vocabulary_id != 1)<b>{{ $data->first()->vocabulary->name }}:</b>@endif
 
 									@foreach ($data as $term)
 										<a href="{{ route('term.show', $term->id) }}">{{ $term->name }}</a>{{ $loop->first ? '' : ', ' }}
@@ -65,7 +65,7 @@
 
 					@empty(!$node->info)
 					<div class="field field-name-body field-type-text-with-summary field-label-hidden">
-					<div class="field-item even"><i>Источник: {{ $node->info }}</i></div>
+					<div class="field-item even" style="word-wrap: break-word;"><i>Источник: {{ $node->info }}</i></div>
 					</div>
 					@endempty
 

@@ -136,6 +136,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <ul class="menu">
                         <li><a href="/">О проекте</a></li>
                         <li><a href="{{ route('node.index') }}" title="Книга памяти">Книга памяти</a></li>
+                        <li><a href="/term/438" title="Освободители Кривого Рога">Освободители Кривого Рога</a></li>
                         <li><a href="/gallery" title="Галерея">Галерея</a></li>
 
 

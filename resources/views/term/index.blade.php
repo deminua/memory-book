@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-12">
 
-<div class="col-md-12"><h1 class="title" id="page-title">{{ $term->vocabulary->name }} - {{ $term->name }}</h1></div>
+<div class="col-md-12"><h1 class="title" id="page-title">@if($term->vocabulary->id != 1){{ $term->vocabulary->name }} - @endif{{ $term->name }}</h1></div>
 
         @foreach ($nodes as $node)
 

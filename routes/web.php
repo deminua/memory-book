@@ -33,6 +33,12 @@ Route::get('/', function () {
 	return view('main');
 })->name('main');
 
+
+Route::get('/getlast', function () {
+	$data = \App\Node::where('id', '>', 4362)->get();
+	return $data->pluck('id', 'title');
+});
+
 Auth::routes();
 Route::any('register', function () {return abort('404');});
 Route::any('password', function () {return abort('404');});
